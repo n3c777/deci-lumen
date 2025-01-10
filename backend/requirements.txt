@@ -1,0 +1,9 @@
+Flask
+Werkzeug
+SQLAlchemy
+Flask-SQLAlchemy
+Flask-Cors
+psycopg2-binary #use binary if you don't want to use config
+python-dotenv
+Flask-migrate
+librosa

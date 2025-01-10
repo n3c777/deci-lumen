@@ -1,0 +1,21 @@
+# Python
+*.pyc
+*.pyo
+__pycache__/
+*.env
+.db
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Node.js (React)
+node_modules/
+build/
+
+# Logs
+*.log
+
+# Local database
+*.db
