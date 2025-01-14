@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ReactAudioPlayer from "react-audio-player";
 
-function AudioList({ trigger, onSelectAudio, isIndividual }) {
+function AudioList({ trigger, isIndividual }) {
   const [audios, setAudios] = useState([]);
 
   useEffect(() => {
@@ -46,12 +46,12 @@ function AudioList({ trigger, onSelectAudio, isIndividual }) {
             src={`http://127.0.0.1:5000/raw_audio/${audio.id}`}
             controls
           />
-          <button
+          {/* <button
             onClick={() => onSelectAudio(audio.id)}
             style={{ marginTop: "10px" }}
           >
             Select for Processing
-          </button>
+          </button> */}
           <button
             onClick={() => deleteAudio(audio.id)}
             style={{ marginLeft: "10px", marginTop: "10px" }}
