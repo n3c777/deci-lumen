@@ -46,12 +46,7 @@ function AudioList({ trigger, isIndividual }) {
             src={`http://127.0.0.1:5000/raw_audio/${audio.id}`}
             controls
           />
-          {/* <button
-            onClick={() => onSelectAudio(audio.id)}
-            style={{ marginTop: "10px" }}
-          >
-            Select for Processing
-          </button> */}
+
           <button
             onClick={() => deleteAudio(audio.id)}
             style={{ marginLeft: "10px", marginTop: "10px" }}

@@ -2,15 +2,11 @@ from flask import Blueprint, request, jsonify
 from app.models.models import ProcessAudio
 import json
 
-"""
-MQTT ROUTES
-"""
-
 def mqtt_routes(mqtt_client):
     mqtt_routes = Blueprint('mqtt', __name__)
 
-    @mqtt_routes.route('/publish', methods=['POST'])
-    def publish_all_processed_audio():
+    @mqtt_routes.route('/get_all_processed_audio', methods=['POST'])
+    def get_all_processed_audio():
         processed_audios = ProcessAudio.query.all()
         if not processed_audios:
             return jsonify({'error': 'No processed audio tracks found.'}), 500
@@ -33,9 +29,7 @@ def mqtt_routes(mqtt_client):
                 'normalized_levels': normalized_levels
             }
 
-            mqtt_client.publish(json.dumps(message))
-            #mqtt_client.publish(json.dumps("this is a message from the web"))
-
-        return jsonify({'message': 'All processed audio tracks published successfully'}), 200
+          
+        return jsonify({'message': 'All processed audio tracks  successfully'}), 200
     
     return mqtt_routes

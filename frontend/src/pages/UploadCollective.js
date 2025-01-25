@@ -55,12 +55,6 @@ function UploadCollective() {
         onSelectAudio={setSelectedAudioId}
         isIndividual={false}
       />
-      {selectedAudioId && (
-        <div>
-          <h3>Process Selected Audio</h3>
-          <ProcessAudio audioId={selectedAudioId} />
-        </div>
-      )}
       <button onClick={goToIndividual}>Next</button>
       {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
     </div>

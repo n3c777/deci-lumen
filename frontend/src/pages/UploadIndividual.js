@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import UploadAudio from "../components/UploadAudio";
 import AudioList from "../components/AudioList";
-import ProcessAudio from "../components/ProcessAudio";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -16,13 +15,25 @@ function UploadIndividual() {
     navigate("/upload-collective");
   };
 
+  const goToBlueTooth = async () => {
+    const isUploadValid = await checkUpload();
+    if (!isUploadValid) {
+      setErrorMessage(
+        "The number of audio tracks must be between or equal to 1 & 5"
+      );
+    } else {
+      await processAllAudio();
+      navigate("/audio-visual");
+    }
+  };
+
   const sendData = async () => {
     try {
       try {
         const isUploadValid = await checkUpload();
         if (!isUploadValid) {
           setErrorMessage(
-            "The number of audio tracks must be between or equal to 1d & 5"
+            "The number of audio tracks must be between or equal to 1 & 5"
           );
         } else {
           setErrorMessage("");
@@ -46,7 +57,7 @@ function UploadIndividual() {
       });
 
       const numberOfAudioTracks = response.data.length;
-      if (numberOfAudioTracks > 1 && numberOfAudioTracks < 6) return true;
+      if (numberOfAudioTracks > 0 && numberOfAudioTracks < 6) return true;
     } catch (error) {
       console.error("Error fetching audio files:", error);
       return false;
@@ -104,7 +115,8 @@ function UploadIndividual() {
         onSelectAudio={setSelectedAudioId}
         isIndividual={true}
       />
-      <button onClick={sendData}>Send Data</button>
+      <button onClick={sendData}>Send Data Through MQTT</button>
+      <button onClick={goToBlueTooth}>Send Data Through Bluetooth</button>
       {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
     </div>
   );

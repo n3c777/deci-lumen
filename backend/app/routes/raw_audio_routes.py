@@ -29,7 +29,6 @@ def get_audio(id):
     return send_file(BytesIO(audio.data), download_name=audio.filename, as_attachment=False, mimetype='audio/wav')
 
 
-
 @raw_audio_routes.route('/raw_audio_list', methods=['GET'])
 def list_audios():
     is_individual = request.args.get('is_individual', None)
@@ -38,9 +37,19 @@ def list_audios():
         audios = RawAudio.query.filter_by(is_individual=is_individual).all()
     else:
         audios = RawAudio.query.all()
-
     return jsonify([{'id': audio.id, 'filename': audio.filename, 'is_individual': audio.is_individual} for audio in audios])
 
+@raw_audio_routes.route('/get_all_raw_audio', methods=['GET'])
+def get_all_audio():
+    is_individual = request.args.get('is_individual', None)
+    if is_individual is not None:
+        is_individual = is_individual.lower() == 'true'
+        audio = RawAudio.query.filter_by(is_individual=is_individual).first()
+    else:
+        audio = RawAudio.query.first()
+    if not audio:
+        return {"error": "No audio files found"}, 404
+    return send_file(BytesIO(audio.data), download_name=audio.filename,as_attachment=False,mimetype='audio/wav')
 
 @raw_audio_routes.route('/delete_raw_audio/<int:id>', methods=['DELETE'])
 def delete_audio(id):

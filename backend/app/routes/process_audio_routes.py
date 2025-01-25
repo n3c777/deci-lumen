@@ -39,4 +39,35 @@ def process_all_individual_audio():
     return jsonify({'message': 'All individual audios processed successfully.'}), 200
 
 
+@process_audio_routes.route('/get_all_processed_audio', methods=['POST']) 
+def get_all_processed_audio():
+    processed_audios = ProcessAudio.query.all()
+    if not processed_audios:
+        return jsonify({'error': 'No processed audio tracks found.'}), 500
+
+    min_value = -80
+    max_value = 0
+    all_audio_data = []
+
+    for processed_audio in processed_audios:
+        if hasattr(processed_audio, 'decibel_levels') and processed_audio.decibel_levels:
+            decibel_levels = json.loads(processed_audio.decibel_levels)
+            normalized_levels = [
+                int((value - min_value) / (max_value - min_value) * 255) for value in decibel_levels
+            ]
+        else:
+            normalized_levels = []
+
+        audio_data = {
+            'audio_id': processed_audio.audio_id,
+            'normalized_levels': normalized_levels
+        }
+        all_audio_data.append(audio_data)
+
+    return jsonify({'processed_audios': all_audio_data}), 200
+
+    
+
+
+
 
