@@ -16,7 +16,6 @@ This also has user validation that checks to see wether
 the user has uploaded to little or too many tracks
 in the max is 5 tracks
 
-
 */
 
 function UploadIndividual() {
@@ -33,35 +32,10 @@ function UploadIndividual() {
   const goToBlueTooth = async () => {
     const isUploadValid = await checkUpload();
     if (!isUploadValid) {
-      setErrorMessage(
-        "The number of audio tracks must be between or equal to 1 & 5"
-      );
+      setErrorMessage("The number of audio tracks must be 2");
     } else {
       await processAllAudio();
       navigate("/audio-visual");
-    }
-  };
-
-  const sendData = async () => {
-    try {
-      try {
-        const isUploadValid = await checkUpload();
-        if (!isUploadValid) {
-          setErrorMessage(
-            "The number of audio tracks must be between or equal to 1 & 5"
-          );
-        } else {
-          setErrorMessage("");
-          navigate("/audio-visual");
-          await processAllAudio();
-          await sendMqttData();
-        }
-      } catch (error) {
-        console.error("Error in goToIndividual:", error);
-        setErrorMessage("An error occurred while validating the upload.");
-      }
-    } catch (error) {
-      console.error("Error in sending data:", error);
     }
   };
 
@@ -72,7 +46,7 @@ function UploadIndividual() {
       });
 
       const numberOfAudioTracks = response.data.length;
-      if (numberOfAudioTracks > 0 && numberOfAudioTracks < 6) return true;
+      if (numberOfAudioTracks == 2) return true;
     } catch (error) {
       console.error("Error fetching audio files:", error);
       return false;
@@ -99,26 +73,6 @@ function UploadIndividual() {
     }
   };
 
-  const sendMqttData = async () => {
-    try {
-      const response = await fetch("http://127.0.0.1:5000/publish", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        console.log(result.message);
-      } else {
-        console.error("Failed to publish processed audio tracks");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
   return (
     <div>
       <button onClick={goToCollective}>Go Back</button>
@@ -130,8 +84,7 @@ function UploadIndividual() {
         onSelectAudio={setSelectedAudioId}
         isIndividual={true}
       />
-      <button onClick={sendData}>Send Data Through MQTT</button>
-      <button onClick={goToBlueTooth}>Send Data Through Bluetooth</button>
+      <button onClick={goToBlueTooth}>Upload All</button>
       {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
     </div>
   );
