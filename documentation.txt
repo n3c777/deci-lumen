@@ -4,6 +4,9 @@ to install flask must create virtual evniorment. Run this command before any pip
 python -m venv .venv
 .venv\Scripts\activate
 if this doesn't work there's a few ways to create the virtual enviorment in python. CNRL + P and then > in the search bar. Then either enter a new path (the base pyhton.exe worked one time for me) or create a virtual enviorment with the current .venv script path (this worked for me the most). Still don't full understand this
+pip install Flask Werkzeug SQLAlchemy Flask-SQLAlchemy Flask-Cors psycopg2-binary python-dotenv Flask-migrate librosa paho-mqtt
+
+
 
 To debug flask use: python -m flask run --debugger
 To see routes use:  flask routes
@@ -19,7 +22,7 @@ docker exec -it <container_name> psql -U <username> -d <database_name>
 
 structure for app
 
-LightGo (root)
+Decilumen (root)
  ├── backend
  │    ├── app
  │    │    ├── __init__.py

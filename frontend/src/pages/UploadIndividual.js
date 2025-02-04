@@ -4,6 +4,21 @@ import AudioList from "../components/AudioList";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+/*
+Upload individual is one of two uploading pages. 
+Users can upload their individual tracks (master tracks)
+
+This page is has navigation functions (goCollective and goToAudioVisual)
+This page uses the UploadAudio component and passes in  true for 
+inIndividual signifying that its a individual track
+
+This also has user validation that checks to see wether  
+the user has uploaded to little or too many tracks
+in the max is 5 tracks
+
+
+*/
+
 function UploadIndividual() {
   const [trigger, setTrigger] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");

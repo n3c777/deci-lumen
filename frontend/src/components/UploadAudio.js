@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import Button from "./Button";
 
+/*
+The upload components allows user to choose the audio track and 
+then it sends the track to the backend. 
+Implemented by the UploadIndividual and Upload Collective
+*/
+
 function UploadAudio({ setTrigger, isIndividual }) {
   const [file, setFile] = useState(null);
 

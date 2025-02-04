@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from "react";
 
+/*
+The function of this blue tooth component is to 
+-allow the user to scan for devices
+-connect to a device
+-retreive the processed json data and attach a time stamp to it upon receival of the time stamp
+-send the data in chunks to the microcontroller
+
+This component was made to seprate the bluetooth function from the rest of code for the audio visual page
+*/
+
 function BlueTooth({ epochTimestamp }) {
   const [devices, setDevices] = useState([]);
   const [connectedDevice, setConnectedDevice] = useState(null);
@@ -87,7 +97,6 @@ function BlueTooth({ epochTimestamp }) {
 
       const data = await response.json();
 
-      // Combine the decibel data with the epoch timestamp
       const combinedData = {
         decibelData: data,
         timestamp: epochTimestamp,
@@ -106,7 +115,7 @@ function BlueTooth({ epochTimestamp }) {
     if (epochTimestamp) {
       fetchAndSendJSON();
     }
-  }, [epochTimestamp]); // Trigger when epochTimestamp changes
+  }, [epochTimestamp]);
 
   return (
     <>

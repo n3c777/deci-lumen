@@ -1,9 +1,22 @@
 import React, { useState } from "react";
 import UploadAudio from "../components/UploadAudio";
 import AudioList from "../components/AudioList";
-import ProcessAudio from "../components/ProcessAudio";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
+/*
+Upload Collective is one of two uploading pages. 
+Users can upload their collective tracks (master tracks)
+
+This page is has navigation functions (goToIndividual and goToWelcome)
+This page uses the UploadAudio component and passes in the false for 
+inIndividual signifying that its a collective track
+
+This also has user validation that checks to see wether  
+the user has uploaded to little or too many tracks
+in the max is one track
+
+*/
 
 function UploadCollective() {
   const [trigger, setTrigger] = useState(null);

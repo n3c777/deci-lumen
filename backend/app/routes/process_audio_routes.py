@@ -6,6 +6,21 @@ from io import BytesIO
 from ..models.models import db, RawAudio, ProcessAudio
 import sys
 
+"""
+/process_all_individual_audio
+A post route used send wav audio to a decibel data. 
+The decibel data can retreived from the audio using librosa.
+To avoid large JSONs I chose every 750 decibel samples. 
+If the WAV file is 22500 hz then it should be close to 30 light pulses a second.
+Its called by the upload individual component
+
+/get_all_processed_audio
+It retreives all the processed audio
+Since the librosa data is measured in 0-80 decibels 
+and the pulse width modulation used to control the lights on the microcontroller takes in values of 0-250,
+it is converted from one to the other
+"""
+
 process_audio_routes = Blueprint('process_audio', __name__)
 
 @process_audio_routes.route('/decibel_data/<int:id>', methods=['GET'])

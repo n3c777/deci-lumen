@@ -1,6 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+/*
+The welcome page
+*/
 function Welcome() {
   const navigate = useNavigate();
 

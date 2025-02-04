@@ -1,6 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import axios from "axios";
 
+/*
+With this component you can pass through a time stamp. Upon receival of the audio track the 
+collective audio track is received. 
+When the timestamp is hit the useRef is used to start the audio playback
+*/
+
 function DelayAudio({ epochTimestamp }) {
   const audioRef = useRef(null);
 
@@ -30,7 +36,7 @@ function DelayAudio({ epochTimestamp }) {
   useEffect(() => {
     if (!epochTimestamp) return;
 
-    const targetTime = epochTimestamp * 1000; // Convert to milliseconds
+    const targetTime = epochTimestamp * 1000;
     const timeToWait = targetTime - Date.now();
 
     if (timeToWait > 0) {
