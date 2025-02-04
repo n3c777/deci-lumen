@@ -13,7 +13,7 @@ function Welcome() {
 
   return (
     <>
-      <h1>Welcome to LightGo</h1>
+      <h1>Welcome to Decilumen</h1>
       <button onClick={navigateToUpload}>Get Started</button>
     </>
   );

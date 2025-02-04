@@ -20,7 +20,7 @@ function BlueTooth({ epochTimestamp }) {
     try {
       const device = await navigator.bluetooth.requestDevice({
         acceptAllDevices: true,
-        optionalServices: ["12345678-1234-1234-1234-123456789abc"],
+        optionalServices: ["35a3d836-c932-4b25-a881-80ab03c766b4"],
       });
 
       setDevices((prevDevices) => [...prevDevices, device]);
@@ -33,10 +33,10 @@ function BlueTooth({ epochTimestamp }) {
     try {
       const server = await device.gatt.connect();
       const service = await server.getPrimaryService(
-        "12345678-1234-1234-1234-123456789abc"
+        "35a3d836-c932-4b25-a881-80ab03c766b4"
       );
       const char = await service.getCharacteristic(
-        "abcdef12-3456-789a-bcde-f1234567890a"
+        "45193246-649b-4d84-ade9-17153d0e3211"
       );
 
       setConnectedDevice(device);

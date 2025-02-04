@@ -5,7 +5,7 @@ import DelayAudio from "../components/DelayAudio";
 import { useNavigate } from "react-router-dom";
 
 /*
-This page primarily to pl. 
+This page primarily to start the audio visual process so that the lights and video go at the same time. 
 -has a start audio visual button, and once pressed will retreive that current 
 time and add 8 seconds to it, giving time for the microcontroller to process the data
 -The future time stamp is used to signify the start of both the the lights and the audio playing. To
@@ -19,7 +19,7 @@ function AudioVisual() {
   const navigate = useNavigate();
   const startAudioVisual = async () => {
     const currentTime = new Date();
-    const targetTime = new Date(currentTime.getTime() + 8000);
+    const targetTime = new Date(currentTime.getTime() + 10000);
     const epochTime = Math.floor(targetTime.getTime() / 1000);
 
     setStartTime(epochTime);
