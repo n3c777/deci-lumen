@@ -1,6 +1,6 @@
 # Decilumen
 
-Decilumen is an application that syncronizes audio and lights together. Combines together multiple technologies, including React, Python and C++, all running in a docker container and an esp32.
+Decilumen is an application that synchronizes audio and lights together. Combines together multiple technologies, including React, Python and C++, all running in a docker container and an esp32.
 
 ## File Structure
 
