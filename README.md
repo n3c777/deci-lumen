@@ -4,6 +4,7 @@ Decilumen is an application that synchronizes audio and lights together. Combine
 
 ## File Structure
 
+
 ```
 Decilumen (root)
 ├── docker-compose.yml
