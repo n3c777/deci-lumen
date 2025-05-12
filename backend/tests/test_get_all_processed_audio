@@ -1,0 +1,16 @@
+from app.models.models import ProcessAudio, db
+
+
+def test_get_all_processed_audio(client, app):
+    with app.app_context():
+        levels = [-80, -40, 0]
+        processed = ProcessAudio(audio_id=1, decibel_levels=json.dumps(levels))
+        db.session.add(processed)
+        db.session.commit()
+
+    resp = client.post('/get_all_processed_audio')
+    assert resp.status_code == 200
+    data = resp.get_json()['processed_audios']
+    assert len(data) == 1
+    assert data[0]['audio_id'] == 1
+    assert data[0]['normalized_levels'] == [0, 127, 255]
