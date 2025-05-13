@@ -19,7 +19,6 @@ def mqtt_routes(mqtt_client):
         max_value = 0
 
         for processed_audio in processed_audios:
-            # Example: Assuming decibel_levels is a list of decibel value
             if hasattr(processed_audio, 'decibel_levels') and processed_audio.decibel_levels:
                 decibel_levels = json.loads(processed_audio.decibel_levels)
                 normalized_levels = [
@@ -34,7 +33,7 @@ def mqtt_routes(mqtt_client):
             }
 
             mqtt_client.publish(json.dumps(message))
-            #mqtt_client.publish(json.dumps("this is a message from the web"))
+            mqtt_client.publish(json.dumps("this is a message from the web"))
 
         return jsonify({'message': 'All processed audio tracks published successfully'}), 200
     

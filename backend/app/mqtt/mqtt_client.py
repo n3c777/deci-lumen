@@ -17,8 +17,6 @@ class MQTTClient:
             print(f"Connection failed with code {rc}")
 
     def on_message(self, client, userdata, msg):
-        #message = f"Message received on topic {msg.topic}: {msg.payload.decode()}"
-        #print(message)  # Print message in MQTTClient class
         if self.message_callback:
             self.message_callback(msg.topic, msg.payload.decode())
 

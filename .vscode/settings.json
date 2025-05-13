@@ -1,3 +1,8 @@
 {
-    "idf.portWin": "COM3"
+    "idf.portWin": "COM3",
+    "python.testing.pytestArgs": [
+        "backend"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
 }

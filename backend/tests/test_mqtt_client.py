@@ -1,4 +1,3 @@
-# tests/test_mqtt_client.py
 import json
 import pytest
 from paho.mqtt.client import MQTTMessage
@@ -11,7 +10,7 @@ class FakePahoClient:
         self._published = []
 
     def connect(self, url, port):
-        # simulate an immediate successful connection
+        # simulate immediate successful connection
         if self.on_connect:
             self.on_connect(self, None, None, 0)
 
@@ -26,7 +25,6 @@ class FakePahoClient:
 
 @pytest.fixture
 def mqtt_client(monkeypatch):
-    # replace the real paho.Client with fake
     fake = FakePahoClient()
     monkeypatch.setattr('app.mqtt.mqtt_client.mqtt.Client', lambda: fake)
 
@@ -36,7 +34,7 @@ def mqtt_client(monkeypatch):
 
 def test_subscribe_on_connect(mqtt_client):
     client, fake = mqtt_client
-    # after connect(), our fake should have recorded a subscribe
+    # after connect() fake should have recorded a subscribe
     assert fake.subscribed_topic == 'test/topic'
 
 def test_publish_encodes_dict_and_retain_flag(mqtt_client):
@@ -54,7 +52,7 @@ def test_message_callback_is_called(mqtt_client):
     received = []
     client.set_message_callback(lambda t, p: received.append((t, p)))
 
-    # craft a fake incoming MQTTMessage
+    # craft fake incoming MQTTMessage
     msg = MQTTMessage(topic=b'test/topic')
     msg.payload = b'hello'
     # simulate broker delivering message

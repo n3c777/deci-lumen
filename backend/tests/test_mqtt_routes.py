@@ -1,4 +1,3 @@
-# tests/test_mqtt_routes.py
 import json
 import pytest
 
@@ -22,28 +21,26 @@ class DummyMQTTClient:
 
 @pytest.fixture
 def app():
-    # create your Flask app in testing mode
+    # create  Flask app in testing mode
     app = create_app()
     # override configurations
     app.config['TESTING'] = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
 
-    # register only the mqtt blueprint using our dummy client
+    # register  the mqtt blueprint using our dummy client
     dummy = DummyMQTTClient()
     app.register_blueprint(mqtt_routes(dummy), url_prefix='/mqtt')
     app.dummy_mqtt = dummy
 
-    # set up our in-memory tables
+
     with app.app_context():
         db.create_all()
-        # seed a ProcessAudio row with known levels
         pa = ProcessAudio(audio_id=123, decibel_levels=json.dumps([-80, -40, 0]))
         db.session.add(pa)
         db.session.commit()
 
     yield app
 
-    # teardown database
     with app.app_context():
         db.drop_all()
 
